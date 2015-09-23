@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Borrar Usuario
+{% endblock title %}
+
+{% block titulo %}
+   Eliminación de usuario
+{% endblock titulo %}
+
+{% block cuerpo %}
+<h1>Eliminar Usuario</h1>
+<form method="post" class="form">{% csrf_token %}
+    <ul class="list-group">
+    <table class="table">
+        <tr>
+            <th>Username</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+
+        </tr>
+        <tr>
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.first_name }}</td>
+            <td>{{ usuario.last_name }}</td>
+        </tr>
+    </table>
+
+</ul>
+    <input type="submit" value="Eliminar" />
+    <a href ="/usuario/lista/" class="btn btn-default" type="submit">Cancelar</a>
+</form>
+{% endblock cuerpo %}

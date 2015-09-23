@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Usuarios Registrados
+{% endblock title %}
+
+{% block titulo %}
+    Lista de usuarios
+{% endblock titulo %}
+
+
+{% block cuerpo %}
+<ul class="list-group">
+    <h1>Usuarios</h1>
+    <table class="table">
+        <tr>
+            <th>Username</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+
+        </tr>
+        {% for usuario in object_list %}
+            <tr>
+                <td>{{ usuario.username }}</td>
+                <td>{{ usuario.first_name }}</td>
+                <td>{{ usuario.last_name }}</td>
+                <td><a href="{% url 'borrar_usuario' usuario.id%}" class="btn btn-sm btn-default" >Eliminar</a></td>
+                <td><a href="{% url 'modificar_usuario' usuario.id%}" class="btn btn-sm btn-default" >Modificar</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+
+</ul>
+
+{% endblock cuerpo %}

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>{% block title%}Index{% endblock %}</title>
+<meta name="keywords" content="VOIP Company, css template, free web design layout" />
+<meta name="description" content="VOIP Company, css template, free web design layout from TemplateMo.com" />
+<link href="{{ STATIC_URL }}menu/templatemo_style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}menu/tabcontent.css" />
+<script type="text/javascript" src="{{ STATIC_URL }}menu/tabcontent.js">
+/***********************************************
+* Tab Content script v2.2- © Dynamic Drive DHTML code library (www.dynamicdrive.com)
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full source code
+***********************************************/
+</script>
+
+</head>
+<>
+<div id="templatemo_wrapper">
+<div id="templatemo_container">
+	<!--  Free CSS Template is provided by www.TemplateMo.com  -->
+    <div id="templatemo_menu">
+        <div id="pettabs" class="indentmenu">
+            <ul>
+                  <li><a href="/index" rel="tab1" class="selected">Inicio</a></li>
+                  <li><a href="/index/#" rel="tab2">Administrar Usuario</a></li>
+                  <li><a href="{% url 'usuario.views.iniciar_sesion' %}" rel="tab3">Iniciar Sesion</a></li>
+                  <li><a href="/index/#" rel="tab4">Cuenta</a></li>
+                  <li><a href="#" rel="tab5">About Us</a></li>
+                  <li><a href="#" rel="tab6" style="border-right: none;">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="tabcontentstyle">
+            {% block titulo %}
+                <div id="tab1" class="tabcontent">
+                    Bienvenido al Gestor de Proyectos
+                </div>
+            {% endblock titulo %}
+
+            <div id="tab2" class="tabcontent">
+            	<ul>
+                    <li><a href="{% url 'registrar_usuario' %}">Crear Usuario</a></li>
+                    <li><a href="{% url 'usuario_lista' %}">Listar Usuarios</a></li>
+                </ul>
+            </div>
+
+            <div id="tab3" class="tabcontent">
+            	<ul>
+                </ul>
+            </div>
+
+            <div id="tab4" class="tabcontent">
+            	<ul>
+                    <li><a href="{% url 'usuario.views.cerrar_sesion' %}">Cerrar Sesion</a></li>
+                    <li><a href="{% url 'cambio_clave' %}">Cambiar Contraseña</a></li>
+                </ul>
+            </div>
+
+        </div>
+<script type="text/javascript">
+
+        var mypets=new ddtabcontent("pettabs")
+        mypets.setpersist(true)
+        mypets.setselectedClassTarget("link")
+        mypets.init(false)
+</script>
+
+    </div> <!-- end of menu -->
+    <div>
+        <img src="{{ STATIC_URL }}menu/images/templatemo_banner_bg.jpg" alt="image"/>
+    </div>
+    {% block cuerpo %}
+	<div id="templatemo_content">
+    	<div id="content_top"></div>
+
+        <div class="templatemo_content_section_01">
+        	<div class="section_01_left">
+                {% if user.is_authenticated %}
+                    <h1>Bienvenido, {{ user.username }} a Gestion Proyecto.</h1>
+                {% else %}
+                    <h1>Debe iniciar sesión para usar Gestion Proyecto</h1>
+                {% endif %}
+          	  <img src="{{ STATIC_URL }}menu/images/templatemo_image_01.jpg" alt="image"/>
+			</div>
+
+            <div class="section_01_right">
+            </div>
+
+            <div class="cleaner">&nbsp;</div>
+		</div>
+
+        <div class="templatemo_content_section_02">
+
+            <div class="section_02_subsection">
+                <ul>
+                </ul>
+            </div>
+
+
+            <div class="section_02_subsection">
+                <ul>
+                </ul>
+            </div>
+
+ 			<div class="section_02_subsection" style="border-right: none;">
+                <div style="clear: both; margin-top: 30px;">
+
+				</div>
+            </div>
+
+            <div class="cleaner">&nbsp;</div>
+		</div>
+    </div>
+    {% endblock cuerpo %}
+
+    <div id="templatemo_footer">
+
+        	<p>Copyright © 2015 <a href="#"><strong>SIGESPRO</strong></a></p>
+	</div> <!-- end of footer -->
+	<!--  Free CSS Templates from www.TemplateMo.com  -->
+</div>
+</div>
+</body>
+</html>
