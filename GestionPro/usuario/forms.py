@@ -7,24 +7,61 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.forms import ModelForm
 from models import Usuario
+from django.db.models import Q
+import datetime
 
-class FormUsuario(UserCreationForm):
+class FormUsuario(forms.Form):
+    """
+    Formulario para Creacion de Usuario
+    """
+    username = forms.CharField(label="USUARIO",widget=forms.TextInput())
+    first_name = forms.CharField(label="NOMBRE",widget=forms.TextInput())
+    last_name = forms.CharField(label="APELLIDO",widget=forms.TextInput())
+    email = forms.EmailField(label="CORREO ELECTRONICO",widget=forms.TextInput())
+    password_one = forms.CharField(label="CONTRASEÑA",widget=forms.PasswordInput(render_value=False))
+    password_two = forms.CharField(label="CONFIRMAR CONTRASEÑA",widget=forms.PasswordInput(render_value=False))
 
-    def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['first_name'].required = True
-        self.fields['last_name'].required = True
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        try:
+            u = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return username
+        raise forms.ValidationError('Nombre de usuario ya existe')
 
-    def save(self, commit=True):
-        user = super(UserCreationForm, self).save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        try:
+            u = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return email
+        raise forms.ValidationError('Email ya registrado')
 
-    class Meta:
-        model = Usuario
-        fields = ('username','email', 'is_superuser','first_name', 'last_name', 'cedula','celular', 'direccion')
+    def clean_password_two(self):
+        password_one = self.cleaned_data['password_one']
+        password_two = self.cleaned_data['password_two']
+        if password_one == password_two:
+            pass
+        else:
+            raise forms.ValidationError('Contraseñas no coinciden')
+#
+# class FormUsuario(UserCreationForm):
+#
+#     def __init__(self, *args, **kwargs):
+#         super(UserCreationForm, self).__init__(*args, **kwargs)
+#         self.fields['first_name'].required = True
+#         self.fields['last_name'].required = True
+#
+#     def save(self, commit=True):
+#         user = super(UserCreationForm, self).save(commit=False)
+#         user.set_password(self.cleaned_data["password1"])
+#         if commit:
+#             user.save()
+#         return user
+#
+#     class Meta:
+#         model = Usuario
+#         fields = ('username','email', 'is_superuser','first_name', 'last_name', 'cedula','celular', 'direccion')
 
 
 
